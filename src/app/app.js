@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const booksRoute = require('./routes/booksRoute');
 const authorsRoute = require('./routes/authorsRoute');
 
+require('./database');
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
