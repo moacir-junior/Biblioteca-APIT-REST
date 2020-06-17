@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
-const Author = require('../models/authors');
+const Book = require('../models/book');
+const Author = require('../models/author');
 const databaseConfig = require('../../config/database');
-const { init } = require('../models/authors');
 
-const models = [Author];
+const models = [Author, Book];
 
 class Database{
     constructor(){
