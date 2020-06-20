@@ -12,7 +12,9 @@ class AuthorsController{
     }
 
     async readAll(req, resp){
-        const authors = await Author.findAll();
+        const authors = await Author.findAll({
+            order:[['name', 'ASC'],],
+        });
         return resp.status(200).send(authors);
     }
 

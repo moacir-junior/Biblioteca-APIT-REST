@@ -20,7 +20,9 @@ class BooksController {
     }
 
     async readAll(req, resp) {
-        const books = await Book.findAll();
+        const books = await Book.findAll({
+            order: [['name', 'ASC'],],
+        });
         return resp.status(200).send(books);
     }
 
@@ -47,6 +49,7 @@ class BooksController {
 
     async delete(req, resp) {
         await Book.destroy({ where: { id: req.params.bookId } });
+        return resp.status(201).send();
     }
 }
 
