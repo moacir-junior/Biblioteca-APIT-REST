@@ -7,6 +7,11 @@ class AuthorsController{
     }
 
     async read(req, resp){
+        const author = await Author.findByPk(req.params.authorId);
+        return resp.status(200).send(author);
+    }
+
+    async readAll(req, resp){
         const authors = await Author.findAll();
         return resp.status(200).send(authors);
     }
@@ -20,6 +25,16 @@ class AuthorsController{
 
         return resp.status(200).send(author);
     }
+
+    async update(req, resp){
+        const author = await Author.findByPk(req.params.authorId);
+
+        if(req.body.name)
+            author.name = req.body.name;
+
+        await author.save();
+        return resp.status(201).send(author);
+    }
 }
 
-module.exports = AuthorsController;
+module.exports = new AuthorsController();
