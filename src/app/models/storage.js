@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-class Author extends Sequelize.Model{
+class Storage extends Sequelize.Model{
   static init(sequelize){
     super.init({
       name: Sequelize.STRING,
@@ -10,8 +10,8 @@ class Author extends Sequelize.Model{
   }
 
   static associate(models){
-    this.hasMany(models.Book, {foreignKey: 'author_id', as: 'books'})
+    this.hasMany(models.Book, {foreignKey: 'storage_id', as: 'books'})
   }
 }
 
-module.exports = Author
+module.exports = Storage

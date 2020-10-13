@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('books', {
@@ -14,6 +13,13 @@ module.exports = {
       author_id: {
         allowNull: false,
         references: {model: 'authors', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.INTEGER,
+      },
+      storage_id: {
+        allowNull: false,
+        references: {model: 'storages', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
@@ -35,9 +41,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       }
-    });
+    })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Books');
+    return queryInterface.dropTable('books')
   }
-};
+}

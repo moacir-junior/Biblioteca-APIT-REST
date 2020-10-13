@@ -1,7 +1,7 @@
 module.exports = {
   'username': 'root',
   'password': 'root',
-  'database': 'biblioteca',
+  'database': 'library',
   'host': 'localhost',
   'dialect': 'mysql',
   'operatorsAliases': false,
