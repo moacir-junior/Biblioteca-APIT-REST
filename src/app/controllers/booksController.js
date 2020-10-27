@@ -30,20 +30,22 @@ class BooksController {
 
   async readAll(req, resp) {
     let where = {}
-    
     const author_id = req.query.author
-    if(author_id){
-      where = {...where, author_id}
-    }
-    
     const storage_id = req.query.storage
-    if(storage_id){
-      where = {...where, storage_id}
-    }
+    const limit = req.query.pagesize ? parseInt(req.query.pagesize) : 1000
+    const offset = req.query.page ? parseInt(req.query.page) : 0
 
+    if(author_id)
+      where = {author_id}
+
+    if(storage_id)
+      where = {...where, storage_id}
+    
     const books = await Book.findAll({
       where,
       order: [['name', 'ASC'],],
+      limit,
+      offset,
       include: [
         { association: 'author' },
         { association: 'storage' },
