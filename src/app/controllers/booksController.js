@@ -1,6 +1,7 @@
 const Book = require('../models/book')
 const Author = require('../models/author')
 const Storage = require('../models/storage')
+const { Sequelize } = require('sequelize')
 
 class BooksController {
   async create(req, resp) {
@@ -29,18 +30,25 @@ class BooksController {
   }
 
   async readAll(req, resp) {
-    let where = {}
-    const author_id = req.query.author
-    const storage_id = req.query.storage
     const limit = req.query.pagesize ? parseInt(req.query.pagesize) : 1000
     const offset = req.query.page ? parseInt(req.query.page) : 0
-
-    if(author_id)
-      where = {author_id}
-
-    if(storage_id)
-      where = {...where, storage_id}
+    const Op = Sequelize.Op;
+    let where = {}
     
+    if('name' in req.query){
+      where.name = {
+        [Op.like]: `${req.query.name}%`
+      } 
+    }
+      
+    if('author' in req.query)
+      where.author_id = req.query.author
+
+    if('storage' in req.query)
+      where.storage_id = req.query.storage
+    
+    console.log('WHERE', where)
+
     const books = await Book.findAll({
       where,
       order: [['name', 'ASC'],],
