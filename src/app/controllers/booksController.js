@@ -47,8 +47,6 @@ class BooksController {
     if('storage' in req.query)
       where.storage_id = req.query.storage
     
-    console.log('WHERE', where)
-
     const books = await Book.findAll({
       where,
       order: [['name', 'ASC'],],
